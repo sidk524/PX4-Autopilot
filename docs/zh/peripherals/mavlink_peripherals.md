@@ -121,6 +121,6 @@ Links to setup instructions for specific MAVLink components:
 
 ## 另见
 
-- [串口配置](../peripherals/serial_configuration.md)
+- [Serial Port Configuration](../peripherals/serial_configuration.md)
 - [PX4 Ethernet Setup > PX4 MAVLink Serial Port Configuration](../advanced_config/ethernet_setup.md#px4-mavlink-serial-port-configuration)
-- [串口映射](../hardware/serial_port_mapping.md)
+- [Serial Port Mapping](../hardware/serial_port_mapping.md)

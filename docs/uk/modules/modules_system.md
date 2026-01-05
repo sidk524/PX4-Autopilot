@@ -127,10 +127,6 @@ commander <command> [arguments...]
 
    check         Run preflight checks
 
-   safety        Change prearm safety state
-     on|off      [on] to activate safety, [off] to deactivate safety and allow
-                 control surface movements
-
    arm
      [-f]        Force arming (do not run preflight checks)
 

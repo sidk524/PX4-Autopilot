@@ -109,3 +109,7 @@ src/systemcmds/topic_listener/listener_generated.cpp
 # colcon
 log/
 keys/
+Tools/setup/xtensa-esp-elf-*.tar.*
+
+# large local logs
+build/px4_sitl_default/rootfs/log/**/*.ulg

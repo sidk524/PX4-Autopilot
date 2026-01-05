@@ -68,13 +68,7 @@ private:
 		hrt_abstime now{};
 
 		if (_sensor_gps_sub.update(&gps)) {
-			if (gps.time_utc_usec > 0) {
-				msg.time_usec = gps.timestamp;
-
-			} else {
-				msg.time_usec = gps.time_utc_usec;
-			}
-
+			msg.time_usec = gps.timestamp;
 			msg.fix_type = gps.fix_type;
 			msg.lat = static_cast<int32_t>(round(gps.latitude_deg * 1e7));
 			msg.lon = static_cast<int32_t>(round(gps.longitude_deg * 1e7));

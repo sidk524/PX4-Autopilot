@@ -1,14 +1,7 @@
 # DroneCAN ESCs
 
 PX4 supports DroneCAN compliant ESCs.
-
-## Supported ESC
-
-:::info
-[Supported ESCs](../peripherals/esc_motors#supported-esc) in _ESCs & Motors_ may include additional devices that are not listed below.
-:::
-
-The following articles have specific hardware/firmware information:
+For more information, see the following articles for specific hardware/firmware:
 
 - [PX4 Sapog ESC Firmware](sapog.md)
   - [Holybro Kotleta 20](holybro_kotleta.md)

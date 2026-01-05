@@ -107,7 +107,7 @@ Below are silkscreens for the Hobbywing XRotor Flight Controller F4.
 
 RC is connected to one of the following ports:
 
-- UART1
+- UART
 - SBUS/PPM port (via inverter, internally goes to UART1)
 
 :::info
