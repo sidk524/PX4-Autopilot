@@ -1,0 +1,47 @@
+#!/bin/sh
+#
+# @name Gazebo x500 depth (GPS-denied, external vision)
+#
+# @type Quadrotor
+#
+
+# The generated make target exports PX4_SIM_MODEL=gz_x500_depth_vision, but there is
+# no gz model of that name: this airframe reuses the x500_depth model and only differs
+# in its estimator configuration. Override unconditionally so px4-rc.gzsim spawns
+# x500_depth. rcS has already resolved SYS_AUTOSTART from the original value by now.
+PX4_SIM_MODEL=x500_depth
+PX4_GZ_WORLD=${PX4_GZ_WORLD:=obstacle_course}
+
+# Per-world spawn overrides, for worlds whose origin is not open flat ground.
+# An explicit PX4_GZ_MODEL_POSE in the environment always wins.
+case "${PX4_GZ_WORLD}" in
+rubicon)
+	# The terrain is a hill whose surface is ~3 m above z=0 at the world origin,
+	# so the default spawn puts the vehicle inside it. (10, 10) is the flat area,
+	# ground at z=1.71.
+	PX4_GZ_MODEL_POSE=${PX4_GZ_MODEL_POSE:=10,10,1.85,0,0,0}
+	;;
+jetty)
+	# Warehouse interior. The origin sits 0.27 m from a Picking_Shelves unit and
+	# 1.3 m from a ladder, i.e. inside the racking. (-19, -4) is the largest open
+	# stretch of floor: 7.96 m to the nearest collision geometry, floor at z=0,
+	# clear overhead to the roof at z=12.19.
+	PX4_GZ_MODEL_POSE=${PX4_GZ_MODEL_POSE:=-19.0,-4.0,0.15,0,0,0}
+	;;
+esac
+
+. ${R}etc/init.d-posix/airframes/4001_gz_x500
+
+# Disable the aiding sources this vehicle does not have, or must not use.
+param set-default EKF2_GPS_CTRL 0
+param set-default EKF2_MAG_TYPE 5
+param set-default EKF2_MAG_CHECK 0
+param set-default EKF2_BARO_CTRL 1
+param set-default EKF2_RNG_CTRL 0
+param set-default EKF2_OF_CTRL 0
+
+# Fuse external vision (horizontal position, vertical position, 3D velocity, yaw)
+# and make vision the height reference.
+param set-default EKF2_EV_CTRL 15
+param set-default EKF2_EV_QMIN 0
+param set-default EKF2_HGT_REF 0

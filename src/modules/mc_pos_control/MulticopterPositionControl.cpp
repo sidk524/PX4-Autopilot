@@ -463,8 +463,9 @@ void MulticopterPositionControl::Run()
 			if (!PX4_ISFINITE(_vehicle_constraints.speed_up) || (_vehicle_constraints.speed_up > _param_mpc_z_vel_max_up.get())) {
 				_vehicle_constraints.speed_up = _param_mpc_z_vel_max_up.get();
 			}
-
-			if (_vehicle_control_mode.flag_control_offboard_enabled) {
+			_vehicle_status_sub.update(&_vehicle_status);
+			if (_vehicle_control_mode.flag_control_offboard_enabled || (_vehicle_status.nav_state >= vehicle_status_s::NAVIGATION_STATE_EXTERNAL1
+				 && _vehicle_status.nav_state <= vehicle_status_s::NAVIGATION_STATE_EXTERNAL8 )) {
 
 				const bool want_takeoff = _vehicle_control_mode.flag_armed
 							  && (vehicle_local_position.timestamp_sample < _setpoint.timestamp + 1_s);
